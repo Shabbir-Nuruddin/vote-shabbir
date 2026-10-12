@@ -7,6 +7,65 @@ const wa = (text) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}
 const $ = (s) => document.querySelector(s);
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Hero tilt: the stage leans with the mouse or the phone, and sways on its own until someone steers it
+(() => {
+  const stage = $('.stage');
+  const hint = $('#tiltHint');
+  if (calm) return;
+  const clamp = (v) => Math.max(-1, Math.min(1, v));
+  let x = 0, y = 0, goalX = 0, goalY = 0;
+  let steered = -1e9, gyro = false, visible = true, raf = 0;
+
+  const frame = (t) => {
+    raf = 0;
+    if (!visible) return;
+    if (!gyro && t - steered > 1800) {
+      goalX = Math.sin(t / 1700) * 0.6;
+      goalY = Math.sin(t / 2300 + 1) * 0.4;
+    }
+    x += (goalX - x) * 0.09;
+    y += (goalY - y) * 0.09;
+    stage.style.setProperty('--tx', x.toFixed(3));
+    stage.style.setProperty('--ty', y.toFixed(3));
+    raf = requestAnimationFrame(frame);
+  };
+  new IntersectionObserver(([e]) => {
+    visible = e.isIntersecting;
+    if (visible && !raf) raf = requestAnimationFrame(frame);
+  }).observe(stage);
+
+  $('.hero').addEventListener('pointermove', (e) => {
+    if (gyro || e.pointerType === 'touch') return;
+    const r = stage.getBoundingClientRect();
+    goalX = clamp((e.clientX - r.left - r.width / 2) / (innerWidth / 2));
+    goalY = clamp((e.clientY - r.top - r.height / 2) / (innerHeight / 2));
+    steered = performance.now();
+  });
+
+  // Phone motion. The neutral position drifts slowly towards however the phone is being held.
+  let restG = null, restB = null;
+  const onTilt = (e) => {
+    if (e.gamma == null || e.beta == null) return;
+    if (restG === null) { restG = e.gamma; restB = e.beta; gyro = true; hint.hidden = true; }
+    restG += (e.gamma - restG) * 0.004;
+    restB += (e.beta - restB) * 0.004;
+    goalX = clamp((e.gamma - restG) / 18);
+    goalY = clamp((e.beta - restB) / 18);
+  };
+  const Motion = window.DeviceOrientationEvent;
+  if (Motion && typeof Motion.requestPermission === 'function') {
+    // iPhone only hands over motion data after a tap
+    hint.hidden = false;
+    stage.addEventListener('click', async () => {
+      if (gyro) return;
+      hint.hidden = true;
+      try {
+        if ((await Motion.requestPermission()) === 'granted') addEventListener('deviceorientation', onTilt);
+      } catch (_) { /* declined: the sway carries on */ }
+    });
+  } else if (Motion) addEventListener('deviceorientation', onTilt);
+})();
+
 // Days left chip
 (() => {
   const now = new Date();

@@ -62,8 +62,17 @@ h3{font-stretch:112%;font-weight:900;text-transform:uppercase;font-size:21px;lin
 .hero-copy{max-width:1120px;margin:0 auto;position:relative}
 .stage{position:relative;height:min(80vw,360px);margin-top:16px}
 .arch{position:absolute;right:0;top:0;width:63%;height:100%;border-radius:999px 999px 0 0;background:var(--mint);overflow:hidden}
-.arch img{width:100%;height:100%;object-fit:cover;object-position:38% 0;padding-top:5%;filter:drop-shadow(-9px 5px 0 var(--green))}
+.arch img{width:100%;height:100%;object-fit:cover;object-position:38% 0;padding-top:5%;filter:drop-shadow(calc(-9px - var(--tx)*5px) calc(5px - var(--ty)*4px) 0 var(--green))}
 .badge{position:absolute;left:0;top:5%;width:37%;aspect-ratio:1;border-radius:50%;background:var(--ink);color:var(--cream);display:grid;place-items:center}
+
+/* hero tilt: app.js sets --tx and --ty between -1 and 1. The photo and its shadow shift inside the arch, the badge floats in front. */
+.stage{--tx:0;--ty:0;transform:perspective(900px) rotateX(calc(var(--ty)*-6deg)) rotateY(calc(var(--tx)*9deg));transform-style:preserve-3d}
+.arch{isolation:isolate}
+.arch img{transform-origin:50% 0;scale:1.06;translate:calc(var(--tx)*2.6%) calc(var(--ty)*1.6%)}
+.badge{translate:0 0 70px;scale:.93}
+.stack{translate:0 0 30px}
+.tilt-hint{position:absolute;right:8px;bottom:14%;translate:0 0 50px;min-height:32px;padding:0 13px;border:0;border-radius:999px;background:var(--ink);color:var(--cream);font:inherit;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
+.tilt-hint[hidden]{display:none}
 .badge .ring{position:absolute;inset:0;width:100%;height:100%;animation:spin 22s linear infinite}
 .badge .ring text{font-family:"Archivo",sans-serif;font-size:16.3px;font-weight:700;fill:var(--mint)}
 .badge b{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:min(10.4vw,74px);line-height:1;transform:rotate(-9deg)}
@@ -87,6 +96,7 @@ h1 i{font-style:normal;display:inline-block;background:var(--cream);padding:.04e
 .js .arch{animation-name:archIn;animation-delay:.05s}
 .js .badge{animation-name:stamp;animation-delay:.45s;animation-duration:.6s}
 .js .stack{animation-delay:.6s}
+.js .tilt-hint{animation:rise .9s var(--ease) 1s both}
 .js h1 span:nth-child(1) i{animation-delay:.2s}
 .js h1 span:nth-child(2) i{animation-delay:.3s}
 .js .slogan span:nth-child(1){animation-delay:.48s}
