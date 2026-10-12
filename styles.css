@@ -223,7 +223,7 @@ h1 i{font-style:normal;display:inline-block;background:var(--cream);padding:.04e
 
 /* very narrow phones */
 @media (max-width:359px){
-  .rule-line{gap:8px;font-size:10px;letter-spacing:.12em}
+  .rule-line{gap:8px;letter-spacing:.08em}
   .actions{grid-template-columns:minmax(0,1fr)}
   .actions .btn{padding:0 14px}
   .actions .btn-mint{font-size:15.5px}
