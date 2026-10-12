@@ -56,7 +56,7 @@ const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const Motion = window.DeviceOrientationEvent;
   if (Motion && typeof Motion.requestPermission === 'function') {
     // iPhone only hands over motion data after a tap
-    hint.hidden = false;
+    hint.hidden = !matchMedia('(pointer: coarse)').matches;
     stage.addEventListener('click', async () => {
       if (gyro) return;
       hint.hidden = true;
@@ -122,6 +122,65 @@ function pick(i, animate) {
 }
 tabs.forEach((t) => t.addEventListener('click', () => pick(+t.dataset.i, true)));
 pick(2, false);
+
+// Offer maker: three blanks become one sentence, ready to send
+(() => {
+  const fields = [
+    { el: $('#mkWhat'), blank: 'your product', you: 'what you sell', me: 'what I sell' },
+    { el: $('#mkWho'), blank: 'your customer', you: 'who it’s for', me: 'who it’s for' },
+    { el: $('#mkCost'), blank: 'your price', you: 'what it costs', me: 'what it costs' },
+  ];
+  const lead = ['We sell ', ' to ', ' for '];
+  const out = $('#offerText'), note = $('#offerNote'), send = $('#offerSend'), copy = $('#offerCopy');
+  let sentence = '';
+  try {
+    JSON.parse(localStorage.getItem('offer') || '[]').forEach((v, i) => { if (fields[i]) fields[i].el.value = v; });
+  } catch (_) { /* nothing saved, or storage is blocked */ }
+
+  const render = () => {
+    const vals = fields.map((f) => f.el.value.trim().replace(/[.\s]+$/, ''));
+    out.textContent = '';
+    vals.forEach((v, i) => {
+      const b = document.createElement('b');
+      b.textContent = v || fields[i].blank;
+      if (!v) b.className = 'gap';
+      out.append(lead[i], b);
+    });
+    out.append('.');
+    const missing = fields.filter((_, i) => !vals[i]);
+    const done = !missing.length;
+    sentence = `We sell ${vals[0]} to ${vals[1]} for ${vals[2]}.`;
+    copy.disabled = !done;
+    if (done) {
+      note.textContent = 'That’s a full offer. Send it to me and I’ll reply with one thing to do this week.';
+      send.href = wa(`Hey Shabbir, here’s my capstone offer: ${sentence} What would you change?`);
+    } else if (missing.length === 3) {
+      note.textContent = 'If you can’t fill in a blank, that’s the part to work out first.';
+      send.href = wa('Hey Shabbir, I’m stuck on my capstone offer. Here’s what I’m building: ');
+    } else {
+      const have = fields.map((f, i) => vals[i] && `${f.me}: ${vals[i]}`).filter(Boolean).join(', ');
+      note.textContent = `Still missing ${missing.map((f) => f.you).join(' and ')}. Work that out first, or send me what you have.`;
+      send.href = wa(`Hey Shabbir, I’m stuck on my capstone offer. So far I have ${have}. I can’t work out ${missing.map((f) => f.me).join(' or ')}.`);
+    }
+    try { localStorage.setItem('offer', JSON.stringify(fields.map((f) => f.el.value))); } catch (_) { /* storage is blocked */ }
+  };
+  fields.forEach((f, i) => {
+    f.el.addEventListener('input', render);
+    f.el.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      if (fields[i + 1]) fields[i + 1].el.focus(); else f.el.blur();
+    });
+  });
+  copy.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(sentence);
+      copy.textContent = 'Copied';
+      setTimeout(() => (copy.textContent = 'Copy it'), 2000);
+    } catch (_) { /* clipboard is blocked */ }
+  });
+  render();
+})();
 
 // Share
 $('#share').addEventListener('click', async (e) => {
@@ -209,8 +268,11 @@ document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
   const bar = $('#bar');
   const hero = $('.hero');
   const test = $('#test');
-  let pastHero = false, atTest = false;
-  const sync = () => bar.classList.toggle('show', pastHero && !atTest);
+  let pastHero = false, atTest = false, typing = false;
+  const sync = () => bar.classList.toggle('show', pastHero && !atTest && !typing);
+  // keep it out of the way of the phone keyboard
+  $('#maker').addEventListener('focusin', () => { typing = true; sync(); });
+  $('#maker').addEventListener('focusout', () => { typing = false; sync(); });
   new IntersectionObserver(([e]) => { pastHero = !e.isIntersecting; sync(); }, { threshold: 0.15 }).observe(hero);
   new IntersectionObserver(([e]) => { atTest = e.isIntersecting; sync(); }, { threshold: 0.2 }).observe(test);
 })();

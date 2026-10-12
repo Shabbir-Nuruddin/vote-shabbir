@@ -3,6 +3,7 @@
   --ink:#0E3B21;
   --green:#1C9B4B;
   --mint:#B4E8BC;
+  --leaf:#12783A; /* green for small text on cream, dark enough to read */
   --line:rgba(14,59,33,.2);
   --line-light:rgba(245,241,223,.22);
   --pad:16px;
@@ -129,6 +130,29 @@ h1 i{font-style:normal;display:inline-block;background:var(--cream);padding:.04e
 .supports .label{opacity:.75;margin-bottom:10px}
 .supports p:last-child{margin-top:6px}
 
+/* offer maker */
+.build{background:var(--ink);color:var(--cream);padding:72px 0}
+.build .label{color:var(--mint)}
+.build h2{margin-top:16px;font-size:clamp(42px,11.6vw,96px)}
+.steps .link{margin-top:8px}
+.link.down::after{content:" \2193"}
+.maker{margin-top:30px;display:grid;gap:22px}
+.maker label{display:grid;gap:4px}
+.maker span{font-size:11.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--mint)}
+.maker input{width:100%;min-height:52px;padding:6px 0;background:transparent;border:0;border-bottom:2px solid var(--line-light);border-radius:0;color:var(--cream);font:inherit;font-weight:800;font-size:22px}
+.maker input::placeholder{color:var(--cream);opacity:.55;font-weight:500}
+.maker input:focus{outline:0;border-bottom:3px solid var(--mint)}
+.offer{margin-top:28px;background:var(--cream);color:var(--ink);border-radius:var(--r);padding:22px 20px 24px}
+.offer .label{color:var(--leaf)}
+.offer-text{margin-top:12px;font-weight:800;font-stretch:106%;font-size:clamp(24px,6.4vw,44px);line-height:1.14;letter-spacing:-.015em;overflow-wrap:anywhere}
+.offer-text b{font-weight:800;color:var(--green)}
+.offer-text b.gap{color:var(--ink);opacity:.34;text-decoration:underline dotted;text-decoration-thickness:2px;text-underline-offset:6px}
+.offer-note{margin-top:14px;font-weight:500;max-width:42ch}
+.offer-actions{margin-top:20px;display:flex;flex-wrap:wrap;gap:10px}
+.btn-line{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn-line:disabled{opacity:.35;cursor:default}
+@media (hover:hover){.btn-line:not(:disabled):hover{background:var(--ink);color:var(--cream)}}
+
 /* stuck */
 .stuck{background:var(--mint);padding:68px 0}
 .stuck h2{margin-top:16px;font-size:clamp(42px,11.6vw,96px)}
@@ -141,7 +165,7 @@ h1 i{font-style:normal;display:inline-block;background:var(--cream);padding:.04e
 .picks button:active{transform:scale(.97)}
 .picks button[aria-selected="true"]{background:var(--ink);color:var(--cream)}
 .answer{margin-top:12px;background:var(--cream);border-radius:var(--r);padding:22px 20px 24px}
-.answer .label{color:var(--green)}
+.answer .label{color:var(--leaf)}
 .ans-text{margin-top:12px;font-weight:800;font-stretch:106%;font-size:clamp(22px,5.8vw,34px);line-height:1.14;letter-spacing:-.015em}
 .answer.swap .label,.answer.swap .ans-text,.answer.swap .link{animation:rise .45s var(--ease) both}
 .answer.swap .ans-text{animation-delay:.05s}
@@ -154,7 +178,7 @@ h1 i{font-style:normal;display:inline-block;background:var(--cream);padding:.04e
 .receipts h2{margin-top:16px}
 .proof{margin-top:30px;border-top:2px solid var(--ink);display:grid}
 .proof li{padding:22px 0 24px;border-bottom:1.5px solid var(--line)}
-.proof .label{color:var(--green)}
+.proof .label{color:var(--leaf)}
 .big{font-family:"Anton",Impact,sans-serif;font-size:clamp(72px,21vw,120px);line-height:1;margin-top:6px;display:flex;align-items:baseline;gap:.08em;font-variant-numeric:tabular-nums}
 .big small{font-family:"Archivo",sans-serif;font-stretch:112%;font-size:.2em;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
 .proof li>p:last-child{margin-top:8px;max-width:40ch}
@@ -211,6 +235,8 @@ h1 i{font-style:normal;display:inline-block;background:var(--cream);padding:.04e
   :root{--pad:32px}
   .supports{grid-template-columns:1fr 1fr}
   .picks{grid-template-columns:repeat(4,1fr)}
+  .maker{grid-template-columns:repeat(3,1fr);gap:28px}
+  .offer{padding:30px 32px 32px}
   .proof{grid-template-columns:1fr 1fr;column-gap:48px}
   .actions{display:flex;flex-wrap:wrap}
   .actions .btn-mint{min-height:56px}
@@ -238,7 +264,7 @@ h1 i{font-style:normal;display:inline-block;background:var(--cream);padding:.04e
   .hero-cta{grid-column:1;margin-top:28px}
   .claim{padding:120px var(--pad) 130px}
   .promise,.receipts{padding:112px 0 100px}
-  .stuck{padding:104px 0}
+  .stuck,.build{padding:104px 0}
   .test{padding:120px 0 110px}
   .intro{font-size:22px}
 }

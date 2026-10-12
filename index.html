@@ -75,7 +75,7 @@
     <ol class="steps">
       <li class="reveal">
         <span class="num">01</span>
-        <div><h3>Sharpen your offer</h3><p>Say what you sell, who it’s for and what it costs, in one sentence.</p></div>
+        <div><h3>Sharpen your offer</h3><p>Say what you sell, who it’s for and what it costs, in one sentence.</p><a class="link down" href="#build">Try it now</a></div>
       </li>
       <li class="reveal">
         <span class="num">02</span>
@@ -90,6 +90,28 @@
     <div class="supports">
       <div class="reveal"><p class="label">All year</p><h3>Build support</h3><p>Hands-on help with your MVP, website and AI tools.</p></div>
       <div class="reveal"><p class="label">All year</p><h3>Launch support</h3><p>Student venture spotlights and content help.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="build" id="build">
+  <div class="wrap">
+    <p class="label reveal">Step 01, right now</p>
+    <h2 class="reveal">Write your offer<br><span class="m">in 30 seconds</span></h2>
+    <p class="intro reveal">This is the first thing we’d do at a sprint. Fill in the three blanks.</p>
+    <form class="maker reveal" id="maker" novalidate>
+      <label><span>What do you sell?</span><input id="mkWhat" type="text" maxlength="70" placeholder="meal prep boxes" autocomplete="off" enterkeyhint="next"></label>
+      <label><span>Who is it for?</span><input id="mkWho" type="text" maxlength="70" placeholder="students who train" autocomplete="off" enterkeyhint="next"></label>
+      <label><span>What does it cost?</span><input id="mkCost" type="text" maxlength="40" placeholder="AED 25 a meal" autocomplete="off" enterkeyhint="done"></label>
+    </form>
+    <div class="offer reveal">
+      <p class="label">Your offer</p>
+      <p class="offer-text" id="offerText" aria-live="polite"></p>
+      <p class="offer-note" id="offerNote"></p>
+      <div class="offer-actions">
+        <a class="btn btn-ink" id="offerSend" href="#" target="_blank" rel="noopener">Send it to me</a>
+        <button class="btn btn-line" id="offerCopy" type="button">Copy it</button>
+      </div>
     </div>
   </div>
 </section>
