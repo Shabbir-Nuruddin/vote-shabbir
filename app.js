@@ -88,22 +88,22 @@ $('#remind').href =
 const ANSWERS = [
   {
     tag: 'Start with real conversations',
-    text: 'Let’s identify a problem and people you can speak with before building. The monthly sprint can help you test an early offer.',
+    text: 'Let’s identify a problem and people you can speak with before building. The monthly sessions can help you test an early offer.',
     msg: 'Hey Shabbir, I don’t have a capstone idea yet. Where do I start?',
   },
   {
-    tag: 'Find people who can test it',
-    text: 'You can start talking to potential users while you build. Tell me who your MVP is for and I’ll help think through outreach for feedback.',
+    tag: 'Help building',
+    text: 'I can help hands-on with your product or website. Tell me who the MVP is for and we can find people to test it while you build.',
     msg: 'Hey Shabbir, we’re building our Capstone MVP and need people to test it. It’s for:',
   },
   {
-    tag: 'Customer outreach',
-    text: 'Tell me who would use your product. We can sharpen your approach and work on reaching potential buyers.',
+    tag: 'Help finding customers',
+    text: 'Tell me who would use your product. The monthly sessions are for this: we sharpen your offer and contact real buyers.',
     msg: 'Hey Shabbir, my capstone is built but has no customers yet. It is: ',
   },
   {
-    tag: 'New collaborations and visibility',
-    text: 'Already selling? Let’s identify a relevant business or creator to approach, or put together a spotlight for your venture. My experience is in pitching partnerships and making content.',
+    tag: 'Get your business seen',
+    text: 'Already selling? Let’s identify a relevant business or creator to approach, or put together a feature on your business. My experience is in pitching partnerships and making content.',
     msg: 'Hey Shabbir, our Capstone is already selling. We’d like help reaching a new partner or audience. It is: ',
   },
 ];
