@@ -62,7 +62,7 @@ h3{font-stretch:112%;font-weight:900;text-transform:uppercase;font-size:21px;lin
 .hero-copy{max-width:1120px;margin:0 auto;position:relative}
 .stage{position:relative;height:min(80vw,360px);margin-top:16px}
 .arch{position:absolute;right:0;top:0;width:63%;height:100%;border-radius:999px 999px 0 0;background:var(--mint);overflow:hidden}
-.arch img{width:100%;height:100%;object-fit:cover;object-position:50% 0;filter:grayscale(1) contrast(1.12);mix-blend-mode:multiply}
+.arch img{width:100%;height:100%;object-fit:cover;object-position:38% 0;padding-top:5%;filter:drop-shadow(-9px 5px 0 var(--green))}
 .badge{position:absolute;left:0;top:5%;width:37%;aspect-ratio:1;border-radius:50%;background:var(--ink);color:var(--cream);display:grid;place-items:center}
 .badge .ring{position:absolute;inset:0;width:100%;height:100%;animation:spin 22s linear infinite}
 .badge .ring text{font-family:"Archivo",sans-serif;font-size:16.3px;font-weight:700;fill:var(--mint)}
@@ -161,7 +161,6 @@ h1 i{font-style:normal;display:inline-block;background:var(--cream);padding:.04e
 .foot{background:var(--ink);color:var(--cream);padding:8px 0 44px}
 .foot .wrap{border-top:1.5px solid var(--line-light);padding-top:40px}
 .foot-big{font-family:"Anton",Impact,sans-serif;text-transform:uppercase;font-size:clamp(44px,12.4vw,104px);line-height:.98}
-.foot-note{margin-top:18px;max-width:36ch;color:var(--mint);font-weight:500}
 .foot .rule-line{margin-top:34px}
 .foot .rule-line a{text-underline-offset:4px;padding:8px 0}
 

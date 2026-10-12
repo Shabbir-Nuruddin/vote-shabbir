@@ -28,22 +28,22 @@ $('#remind').href =
 const ANSWERS = [
   {
     tag: 'You get: the Monthly Customer Sprint',
-    text: 'Start with the customer, not the idea. At the sprint we find a problem people will pay to fix, then you build that.',
-    msg: 'Hey Shabbir, I do not have a capstone idea yet. Where do I start?',
+    text: 'Come to the first sprint without one. We’ll look for a problem people already pay to fix, and you build that.',
+    msg: 'Hey Shabbir, I don’t have a capstone idea yet. Where do I start?',
   },
   {
     tag: 'You get: Build support',
-    text: 'Hands-on help with your MVP, website and AI tools. I built Charlie AI in 48 hours, so I know the shortcuts.',
-    msg: 'Hey Shabbir, I am building my capstone MVP and could use a hand. It is: ',
+    text: 'I’ll sit with you on the MVP, the website or the AI tools. We built Charlie AI in 48 hours, so I know where the time goes.',
+    msg: 'Hey Shabbir, I’m building my capstone MVP and could use a hand. It’s:',
   },
   {
     tag: 'You get: the Monthly Customer Sprint',
-    text: 'This is the exact gap I am running to close. We sharpen your offer, write your pitch and reach real customers together.',
+    text: 'This is who the sprint is for. We fix your offer, write the pitch and send it to real customers the same day.',
     msg: 'Hey Shabbir, my capstone is built but has no customers yet. It is: ',
   },
   {
     tag: 'You get: Launch support',
-    text: 'Student venture spotlights and content help. I grew an audience to 80K+, so let us put that to work for you.',
+    text: 'I’ll help you make content about it and get it a student venture spotlight. I helped grow TheRashidaDiaries to 80K+ followers, so this is the part I know best.',
     msg: 'Hey Shabbir, my capstone is selling and I want more customers. It is: ',
   },
 ];
