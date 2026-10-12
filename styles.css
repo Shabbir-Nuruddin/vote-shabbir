@@ -45,9 +45,9 @@ h3{font-stretch:112%;font-weight:900;text-transform:uppercase;font-size:21px;lin
 .btn-ink{background:var(--ink);color:var(--cream)}
 .btn-mint{background:var(--mint);color:var(--ink)}
 .btn-ghost{background:transparent;color:var(--cream);border-color:var(--line-light)}
-.btn:focus-visible,.picks button:focus-visible,a:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+.btn:focus-visible,.picks button:focus-visible,.tilt-hint:focus-visible,a:focus-visible{outline:3px solid var(--green);outline-offset:3px}
 @media (hover:hover){
-  .btn-ink:hover{background:var(--green)}
+  .btn-ink:hover{background:var(--leaf)}
   .btn-mint:hover{background:var(--cream)}
   .btn-ghost:hover{border-color:var(--cream)}
 }
@@ -111,7 +111,7 @@ h1 i{font-style:normal;display:inline-block;background:var(--cream);padding:.04e
 /* claim */
 .claim{background:var(--ink);color:var(--cream);padding:72px var(--pad) 80px}
 .claim .label{color:var(--mint);max-width:1120px;margin:0 auto 22px}
-.claim-text{max-width:1120px;margin:0 auto;font-weight:800;font-stretch:108%;font-size:clamp(33px,8.6vw,84px);line-height:1.04;letter-spacing:-.025em}
+.claim-text{max-width:1120px;margin:0 auto;font-weight:800;font-stretch:108%;font-size:clamp(33px,8.6vw,84px);line-height:1.12;letter-spacing:-.025em}
 .claim-text em{font-style:normal;color:var(--mint)}
 .js .claim-text .w{opacity:.2;transition:opacity .35s linear}
 .js .claim-text .w.on{opacity:1}
@@ -127,21 +127,20 @@ h1 i{font-style:normal;display:inline-block;background:var(--cream);padding:.04e
 .steps p{margin-top:6px;max-width:38ch}
 .supports{margin-top:28px;display:grid;gap:12px}
 .supports>div{background:var(--mint);border-radius:var(--r);padding:20px}
-.supports .label{opacity:.75;margin-bottom:10px}
 .supports p:last-child{margin-top:6px}
 
 /* offer maker */
 .build{background:var(--ink);color:var(--cream);padding:72px 0}
 .build .label{color:var(--mint)}
 .build h2{margin-top:16px;font-size:clamp(42px,11.6vw,96px)}
-.steps .link{margin-top:8px}
+.steps .link{margin-top:2px}
 .link.down::after{content:" \2193"}
 .maker{margin-top:30px;display:grid;gap:22px}
 .maker label{display:grid;gap:4px}
 .maker span{font-size:11.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--mint)}
 .maker input{width:100%;min-height:52px;padding:6px 0;background:transparent;border:0;border-bottom:2px solid var(--line-light);border-radius:0;color:var(--cream);font:inherit;font-weight:800;font-size:22px}
 .maker input::placeholder{color:var(--cream);opacity:.55;font-weight:500}
-.maker input:focus{outline:0;border-bottom:3px solid var(--mint)}
+.maker input:focus{outline:0;border-bottom-color:var(--mint);box-shadow:0 1px 0 var(--mint)}
 .offer{margin-top:28px;background:var(--cream);color:var(--ink);border-radius:var(--r);padding:22px 20px 24px}
 .offer .label{color:var(--leaf)}
 .offer-text{margin-top:12px;font-weight:800;font-stretch:106%;font-size:clamp(24px,6.4vw,44px);line-height:1.14;letter-spacing:-.015em;overflow-wrap:anywhere}
@@ -170,7 +169,7 @@ h1 i{font-style:normal;display:inline-block;background:var(--cream);padding:.04e
 .answer.swap .label,.answer.swap .ans-text,.answer.swap .link{animation:rise .45s var(--ease) both}
 .answer.swap .ans-text{animation-delay:.05s}
 .answer.swap .link{animation-delay:.1s}
-.link{display:inline-block;margin-top:18px;font-weight:800;font-size:15.5px;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px;padding:6px 0}
+.link{display:inline-block;margin-top:12px;font-weight:800;font-size:15.5px;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px;padding:11px 0}
 .link::after{content:" \2192"}
 
 /* receipts */
@@ -180,7 +179,7 @@ h1 i{font-style:normal;display:inline-block;background:var(--cream);padding:.04e
 .proof li{padding:22px 0 24px;border-bottom:1.5px solid var(--line)}
 .proof .label{color:var(--leaf)}
 .big{font-family:"Anton",Impact,sans-serif;font-size:clamp(72px,21vw,120px);line-height:1;margin-top:6px;display:flex;align-items:baseline;gap:.08em;font-variant-numeric:tabular-nums}
-.big small{font-family:"Archivo",sans-serif;font-stretch:112%;font-size:.2em;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+.big small{font-family:"Archivo",sans-serif;font-stretch:112%;font-size:clamp(14.5px,4.2vw,24px);font-weight:900;letter-spacing:.06em;text-transform:uppercase}
 .proof li>p:last-child{margin-top:8px;max-width:40ch}
 
 /* test */
@@ -196,7 +195,7 @@ h1 i{font-style:normal;display:inline-block;background:var(--cream);padding:.04e
 .foot .wrap{border-top:1.5px solid var(--line-light);padding-top:40px}
 .foot-big{font-family:"Anton",Impact,sans-serif;text-transform:uppercase;font-size:clamp(44px,12.4vw,104px);line-height:.98}
 .foot .rule-line{margin-top:34px}
-.foot .rule-line a{text-underline-offset:4px;padding:8px 0}
+.foot .rule-line a{text-underline-offset:4px;padding:15px 0}
 
 /* sticky bar */
 .bar{

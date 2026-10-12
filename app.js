@@ -120,7 +120,18 @@ function pick(i, animate) {
     answer.classList.add('swap');
   }
 }
-tabs.forEach((t) => t.addEventListener('click', () => pick(+t.dataset.i, true)));
+tabs.forEach((t, i) => {
+  t.addEventListener('click', () => pick(i, true));
+  // arrow keys move between the four options
+  t.addEventListener('keydown', (e) => {
+    const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+    if (!step) return;
+    e.preventDefault();
+    const n = (i + step + tabs.length) % tabs.length;
+    tabs[n].focus();
+    pick(n, true);
+  });
+});
 pick(2, false);
 
 // Offer maker: three blanks become one sentence, ready to send
