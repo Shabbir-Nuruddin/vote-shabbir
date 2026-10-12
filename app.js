@@ -77,34 +77,34 @@ const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 })();
 
 // Links
-$('#waMain').href = wa('Hey Shabbir, here is my capstone: ');
+$('#waMain').href = wa('Hey Shabbir, our Capstone is: \nWe need to reach: ');
 $('#remind').href =
   'https://calendar.google.com/calendar/render?action=TEMPLATE' +
   '&text=' + encodeURIComponent('Vote Shabbir for VP of Capstone') +
   '&dates=20261015/20261016' +
-  '&details=' + encodeURIComponent('Tetr Student Elections. Build it. Let\'s sell it. ' + SITE);
+  '&details=' + encodeURIComponent('Tetr Student Elections. You build. I\'ll open doors. ' + SITE);
 
 // Where is your capstone right now?
 const ANSWERS = [
   {
-    tag: 'You get: the Monthly Customer Sprint',
-    text: 'Come to the first sprint without one. We’ll look for a problem people already pay to fix, and you build that.',
+    tag: 'Start with real conversations',
+    text: 'Let’s identify a problem and people you can speak with before building. The monthly sprint can help you test an early offer.',
     msg: 'Hey Shabbir, I don’t have a capstone idea yet. Where do I start?',
   },
   {
-    tag: 'You get: Build support',
-    text: 'I’ll sit with you on the MVP, the website or the AI tools. We built Charlie AI in 48 hours, so I know where the time goes.',
-    msg: 'Hey Shabbir, I’m building my capstone MVP and could use a hand. It’s:',
+    tag: 'Find people who can test it',
+    text: 'You can start talking to potential users while you build. Tell me who your MVP is for and I’ll help think through outreach for feedback.',
+    msg: 'Hey Shabbir, we’re building our Capstone MVP and need people to test it. It’s for:',
   },
   {
-    tag: 'You get: the Monthly Customer Sprint',
-    text: 'This is who the sprint is for. We fix your offer, write the pitch and send it to real customers the same day.',
+    tag: 'Customer outreach',
+    text: 'Tell me who would use your product. We can sharpen your approach and work on reaching potential buyers.',
     msg: 'Hey Shabbir, my capstone is built but has no customers yet. It is: ',
   },
   {
-    tag: 'You get: Launch support',
-    text: 'I’ll help you make content about it and get it a student venture spotlight. I helped grow TheRashidaDiaries to 80K+ followers, so this is the part I know best.',
-    msg: 'Hey Shabbir, my capstone is selling and I want more customers. It is: ',
+    tag: 'New collaborations and visibility',
+    text: 'Already selling? Let’s identify a relevant business or creator to approach, or put together a spotlight for your venture. My experience is in pitching partnerships and making content.',
+    msg: 'Hey Shabbir, our Capstone is already selling. We’d like help reaching a new partner or audience. It is: ',
   },
 ];
 const tabs = [...document.querySelectorAll('.picks button')];
@@ -163,7 +163,7 @@ pick(2, false);
     sentence = `We sell ${vals[0]} to ${vals[1]} for ${vals[2]}.`;
     copy.disabled = !done;
     if (done) {
-      note.textContent = 'That’s a full offer. Send it to me and I’ll reply with one thing to do this week.';
+      note.textContent = 'That’s a full offer. Send it to me with the kind of customer or partner you want to reach.';
       send.href = wa(`Hey Shabbir, here’s my capstone offer: ${sentence} What would you change?`);
     } else if (missing.length === 3) {
       note.textContent = 'If you can’t fill in a blank, that’s the part to work out first.';
@@ -196,7 +196,7 @@ pick(2, false);
 // Share
 $('#share').addEventListener('click', async (e) => {
   const btn = e.currentTarget;
-  const data = { title: 'Vote Shabbir for VP of Capstone', text: 'Build it. Let\'s sell it. Vote Thursday, 15 October.', url: location.href };
+  const data = { title: 'Vote Shabbir for VP of Capstone', text: 'You build. I\'ll open doors. Customers. Collaborations. Visibility. Vote Thursday, 15 October.', url: SITE };
   try {
     if (navigator.share) return await navigator.share(data);
     await navigator.clipboard.writeText(location.href);
