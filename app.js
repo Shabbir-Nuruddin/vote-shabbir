@@ -7,11 +7,11 @@ const wa = (text) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}
 const $ = (s) => document.querySelector(s);
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Hero tilt: the stage leans with the mouse or the phone, and sways on its own until someone steers it
+// Hero tilt: the stage leans with the mouse or the phone, and sways on its own until someone steers it.
+// With reduced motion on, it only moves when the visitor moves it.
 (() => {
   const stage = $('.stage');
   const hint = $('#tiltHint');
-  if (calm) return;
   const clamp = (v) => Math.max(-1, Math.min(1, v));
   let x = 0, y = 0, goalX = 0, goalY = 0;
   let steered = -1e9, gyro = false, visible = true, raf = 0;
@@ -19,7 +19,7 @@ const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const frame = (t) => {
     raf = 0;
     if (!visible) return;
-    if (!gyro && t - steered > 1800) {
+    if (!calm && !gyro && t - steered > 1800) {
       goalX = Math.sin(t / 1700) * 0.6;
       goalY = Math.sin(t / 2300 + 1) * 0.4;
     }
@@ -41,6 +41,7 @@ const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
     goalY = clamp((e.clientY - r.top - r.height / 2) / (innerHeight / 2));
     steered = performance.now();
   });
+  $('.hero').addEventListener('pointerleave', () => { if (calm) goalX = goalY = 0; });
 
   // Phone motion. The neutral position drifts slowly towards however the phone is being held.
   let restG = null, restB = null;
@@ -113,7 +114,7 @@ function pick(i, animate) {
   $('#ansTag').textContent = ANSWERS[i].tag;
   $('#ansText').textContent = ANSWERS[i].text;
   $('#ansLink').href = wa(ANSWERS[i].msg);
-  if (animate && !calm) {
+  if (animate) {
     answer.classList.remove('swap');
     void answer.offsetWidth;
     answer.classList.add('swap');
@@ -134,27 +135,37 @@ $('#share').addEventListener('click', async (e) => {
   } catch (_) { /* share sheet dismissed */ }
 });
 
+// Wrap every word of an element in a span, keeping nested tags and line breaks
+const wrapWords = (node) => {
+  [...node.childNodes].forEach((n) => {
+    if (n.nodeType === 3) {
+      const frag = document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach((part) => {
+        if (!part.trim()) return frag.append(part);
+        const s = document.createElement('span');
+        s.className = 'w';
+        s.textContent = part;
+        frag.append(s);
+      });
+      n.replaceWith(frag);
+    } else wrapWords(n);
+  });
+};
+
+// Headlines and intros arrive one word at a time
+document.querySelectorAll('h2.reveal, .intro.reveal').forEach((el) => {
+  wrapWords(el);
+  const words = el.querySelectorAll('.w');
+  const gap = Math.min(70, 520 / words.length);
+  words.forEach((w, i) => { w.style.transitionDelay = `${Math.round(i * gap)}ms`; });
+  el.classList.add('words');
+});
+
 // Claim: words light up as you scroll through
 (() => {
   const el = $('#claimText');
-  const wrapWords = (node) => {
-    [...node.childNodes].forEach((n) => {
-      if (n.nodeType === 3) {
-        const frag = document.createDocumentFragment();
-        n.textContent.split(/(\s+)/).forEach((part) => {
-          if (!part.trim()) return frag.append(part);
-          const s = document.createElement('span');
-          s.className = 'w';
-          s.textContent = part;
-          frag.append(s);
-        });
-        n.replaceWith(frag);
-      } else wrapWords(n);
-    });
-  };
   wrapWords(el);
   const words = [...el.querySelectorAll('.w')];
-  if (calm) return words.forEach((w) => w.classList.add('on'));
   let queued = false;
   const paint = () => {
     queued = false;
@@ -173,7 +184,7 @@ $('#share').addEventListener('click', async (e) => {
 // Reveal on scroll, with a count-up for the proof numbers
 const countUp = (el) => {
   const end = +el.dataset.count;
-  if (calm || end < 3) return;
+  if (end < 3) return;
   const t0 = performance.now();
   const dur = 1100;
   const step = (t) => {
